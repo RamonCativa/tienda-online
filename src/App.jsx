@@ -1,14 +1,35 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Tienda } from './Tiendaonline/Tiendaonline'
+import { Carrito } from './Tiendaonline/Carrito'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [carrito, setCarrito] = useState([])
+  const [comprando, setcomprando]= useState(false)
 
+  function agregarcarrito(producto){
+    setCarrito([...carrito,producto])
+
+  }
+
+  console.log(carrito)
+  if(comprando){
+    return<>
+    
+    <h1>tienda online</h1>
+    <Carrito carrito={carrito}/>
+    <button onClick={()=>{
+        setcomprando(false)
+        setCarrito([])
+        alert("compras realizadas con exito")
+      }}>comprar </button>
+    </>
+  }
   return (
     <>
-      
+      <h1>tienda online</h1>
+      <button disabled={carrito.length==0} onClick={()=>{setcomprando(true)}}>carrito: {carrito.length}</button>
+      <Tienda comprar={agregarcarrito}/>
     </>
   )
 }
